@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTA VI Shorts Clipper</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0c13;
+      --bg-card: #121624;
+      --bg-card-hover: #191f33;
+      --bg-input: #0e121d;
+      --border-color: #232c45;
+      --border-accent: rgba(0, 240, 255, 0.3);
+      --accent-cyan: #00f0ff;
+      --accent-cyan-glow: rgba(0, 240, 255, 0.4);
+      --accent-pink: #ff2a85;
+      --accent-pink-glow: rgba(255, 42, 133, 0.4);
+      --accent-yellow: #ffe600;
+      --accent-green: #00e676;
+      --accent-green-glow: rgba(0, 230, 118, 0.35);
+      --accent-orange: #ff9100;
+      --accent-orange-glow: rgba(255, 145, 0, 0.35);
+      --accent-red: #ff3366;
+      --text-main: #f0f4fc;
+      --text-muted: #8b99b5;
+      --text-dim: #546380;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Title Bar */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: linear-gradient(180deg, #161b2b 0%, #0e121e 100%);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--accent-pink), var(--accent-cyan));
+      color: #fff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 12px var(--accent-pink-glow);
+    }
+
+    .brand-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      background: linear-gradient(90deg, #ffffff 40%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+
+    .status-dot.idle { background: var(--text-dim); }
+    .status-dot.running {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px var(--accent-cyan);
+      animation: pulse-dot 1.2s infinite alternate;
+    }
+    .status-dot.stopping {
+      background: var(--accent-orange);
+      box-shadow: 0 0 8px var(--accent-orange);
+      animation: pulse-dot 0.8s infinite alternate;
+    }
+    .status-dot.done {
+      background: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+    .status-dot.cancelled { background: var(--accent-orange); }
+    .status-dot.error { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+
+    @keyframes pulse-dot {
+      from { opacity: 0.4; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1.15); }
+    }
+
+    /* Main Container (Two Columns Matching Sketch) */
+    .main-container {
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      flex: 1;
+      overflow: hidden;
+      gap: 20px;
+      padding: 24px;
+    }
+
+    /* Left Panel (Form & Controls) */
+    .left-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      transition: opacity 0.25s ease, filter 0.25s ease;
+    }
+
+    .form-section.disabled {
+      opacity: 0.32;
+      pointer-events: none;
+      filter: grayscale(0.9);
+      cursor: not-allowed;
+      user-select: none;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .text-input {
+      flex: 1;
+      background: var(--bg-input);
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      outline: none;
+      transition: all 0.2s ease;
+      user-select: text;
+    }
+
+    .text-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    }
+
+    .text-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .btn-secondary {
+      background: #1e2538;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: #28314a;
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* Clipping Method Selector */
+    .method-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .method-card {
+      background: var(--bg-input);
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      padding: 11px 14px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      transition: all 0.2s ease;
+      color: var(--text-main);
+      font-family: inherit;
+      width: 100%;
+    }
+
+    .method-card:hover:not(:disabled) {
+      border-color: rgba(0, 240, 255, 0.45);
+      background: #131929;
+    }
+
+    .method-card.active {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.09);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.22);
+    }
+
+    .method-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .method-icon {
+      font-size: 16px;
+    }
+
+    .method-name {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+
+    .method-card.active .method-name {
+      color: var(--accent-cyan);
+    }
+
+    .method-badge {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(0, 230, 118, 0.16);
+      border: 1px solid rgba(0, 230, 118, 0.4);
+      color: var(--accent-green);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .method-card-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      padding-left: 24px;
+    }
+
+    .method-card:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    /* Stepper for Clip Count */
+    .stepper-container {
+      display: flex;
+      align-items: center;
+      background: var(--bg-input);
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      width: 170px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .stepper-container:focus-within {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    }
+
+    .stepper-btn {
+      width: 44px;
+      height: 42px;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease;
+    }
+
+    .stepper-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent-cyan);
+    }
+
+    .stepper-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      outline: none;
+      user-select: text;
+    }
+
+    /* Toggle Switches (Facecam & Subtitles) */
+    .toggle-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 10px 14px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .checkbox-label:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: #141928;
+    }
+
+    .checkbox-label-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .custom-switch {
+      position: relative;
+      width: 46px;
+      height: 24px;
+    }
+
+    .custom-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .switch-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #252e45;
+      transition: 0.25s ease;
+      border-radius: 24px;
+      border: 1px solid #364263;
+    }
+
+    .switch-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.25s ease;
+      border-radius: 50%;
+    }
+
+    input:checked + .switch-slider {
+      background-color: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan-glow);
+      border-color: var(--accent-cyan);
+    }
+
+    input:checked + .switch-slider:before {
+      transform: translateX(22px);
+      background-color: #041019;
+    }
+
+    /* Buttons Section (Bottom of Left Panel) */
+    .actions-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 13px 20px;
+      border-radius: 8px;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+    }
+
+    .btn-start {
+      background: linear-gradient(135deg, #00e676 0%, #00b0ff 100%);
+      color: #05141a;
+      box-shadow: 0 4px 15px var(--accent-green-glow);
+    }
+
+    .btn-start:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(0, 230, 118, 0.5);
+    }
+
+    .btn-cancel {
+      background: #251624;
+      border: 1px solid #ff336666;
+      color: #ff4d7d;
+    }
+
+    .btn-cancel:hover:not(:disabled) {
+      background: #ff3366;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+    }
+
+    .btn-cancel-after {
+      width: 100%;
+      background: #262016;
+      border: 1.5px solid #ff910066;
+      color: #ffaa33;
+    }
+
+    .btn-cancel-after:hover:not(:disabled) {
+      background: #ff9100;
+      color: #0a0800;
+      box-shadow: 0 4px 15px var(--accent-orange-glow);
+    }
+
+    .btn-cancel-after.armed {
+      background: #ff9100;
+      color: #0a0800;
+      box-shadow: 0 0 16px var(--accent-orange-glow);
+      animation: pulse-orange 1.2s infinite alternate;
+    }
+
+    @keyframes pulse-orange {
+      from { opacity: 0.85; }
+      to { opacity: 1; }
+    }
+
+    .btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      filter: grayscale(0.8);
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .btn-start:disabled {
+      background: #171d2b !important;
+      color: #43526e !important;
+      border: 1px solid #232c45 !important;
+      box-shadow: none !important;
+      transform: none !important;
+      cursor: not-allowed !important;
+    }
+
+    /* Right Panel (Progress & Clips List) */
+    .right-panel {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .progress-header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 16px;
+    }
+
+    .progress-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eta-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+
+    .eta-pill {
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--border-accent);
+      color: var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .elapsed-text {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    /* Clips Scrollable List */
+    .clips-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-right: 6px;
+    }
+
+    /* Custom Scrollbar matching sketch's prominent scrollbar */
+    .clips-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .clips-list::-webkit-scrollbar-track {
+      background: var(--bg-input);
+      border-radius: 4px;
+    }
+
+    .clips-list::-webkit-scrollbar-thumb {
+      background: #2a344d;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    .clips-list::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-cyan);
+    }
+
+    /* Clip Card */
+    .clip-card {
+      background: var(--bg-input);
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clip-card.waiting {
+      opacity: 0.65;
+    }
+
+    .clip-card.running {
+      border-color: var(--accent-cyan);
+      background: #0f1624;
+      box-shadow: 0 4px 18px rgba(0, 240, 255, 0.15);
+    }
+
+    .clip-card.done {
+      border-color: rgba(0, 230, 118, 0.4);
+      background: #0d191a;
+      cursor: pointer;
+    }
+
+    .clip-card.done:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.2);
+    }
+
+    .clip-card.error {
+      border-color: var(--accent-red);
+      background: #1a0f14;
+    }
+
+    .clip-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .clip-name-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .clip-name {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    .clip-meta-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    .clip-progress-value {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-done {
+      color: var(--accent-green);
+      background: rgba(0, 230, 118, 0.15);
+      border: 1px solid rgba(0, 230, 118, 0.4);
+      padding: 3px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-running {
+      color: var(--accent-cyan);
+      font-size: 18px;
+    }
+
+    .badge-waiting {
+      color: var(--text-dim);
+      font-size: 16px;
+    }
+
+    .badge-error {
+      color: var(--accent-red);
+      background: rgba(255, 51, 102, 0.15);
+      border: 1px solid rgba(255, 51, 102, 0.4);
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    /* Progress bar */
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: #1d2538;
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-pink), var(--accent-cyan));
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-bar-fill.done {
+      background: var(--accent-green);
+      box-shadow: 0 0 10px var(--accent-green);
+    }
+
+    .clip-stage-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .clip-stage-text {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .clip-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .clip-btn {
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--accent-cyan);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .clip-btn:hover {
+      background: var(--accent-cyan);
+      color: #041019;
+      box-shadow: 0 0 10px var(--accent-cyan-glow);
+    }
+
+    .clip-btn.btn-play {
+      background: rgba(0, 230, 118, 0.1);
+      border-color: rgba(0, 230, 118, 0.3);
+      color: var(--accent-green);
+    }
+
+    .clip-btn.btn-play:hover {
+      background: var(--accent-green);
+      color: #041019;
+      box-shadow: 0 0 10px var(--accent-green-glow);
+    }
+
+    /* Bottom Info Status Bar */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px;
+      background: #090c14;
+      border-top: 1px solid var(--border-color);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .global-message {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-cyan);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .link-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 12px;
+      transition: color 0.15s ease;
+    }
+
+    .link-btn:hover {
+      color: var(--accent-cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Title Bar -->
+  <header>
+    <div class="brand">
+      <span class="brand-badge">GTA VI</span>
+      <h1 class="brand-title">SHORTS CLIPPER STUDIO</h1>
+    </div>
+    <div class="header-actions">
+      <div class="status-pill">
+        <div id="statusDot" class="status-dot idle"></div>
+        <span id="statusText">Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Two-Column Workspace (Matches Sketch) -->
+  <div class="main-container">
+
+    <!-- Left Column: Inputs & Action Buttons -->
+    <div class="left-panel">
+      <div id="formSection" class="form-section">
+        
+        <!-- Video URL Input -->
+        <div class="form-group">
+          <label class="form-label" for="videoUrl">Video URL :</label>
+          <div class="input-row">
+            <input 
+              type="text" 
+              id="videoUrl" 
+              class="text-input" 
+              placeholder="https://www.youtube.com/watch?v=..." 
+              spellcheck="false"
+            />
+            <button id="btnPaste" class="btn-secondary" title="Paste from Clipboard">
+              📋 Paste
+            </button>
+          </div>
+        </div>
+
+        <!-- Clipping Method Selection -->
+        <div class="form-group">
+          <label class="form-label">Clipping Method :</label>
+          <div class="method-selector">
+            <button type="button" id="btnMethodStream" class="method-card active" data-method="stream">
+              <div class="method-card-header">
+                <span class="method-icon">⚡</span>
+                <span class="method-name">Direct Stream</span>
+                <span class="method-badge">Fast &amp; Direct</span>
+              </div>
+              <div class="method-card-desc">Slices directly from YouTube (No full video download)</div>
+            </button>
+            <button type="button" id="btnMethodDownload" class="method-card" data-method="download">
+              <div class="method-card-header">
+                <span class="method-icon">💾</span>
+                <span class="method-name">Full Download</span>
+              </div>
+              <div class="method-card-desc">Downloads full 1080p source video upfront to raw_videos/</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Clip Count Stepper -->
+        <div class="form-group">
+          <label class="form-label" for="clipCount">Clip Count :</label>
+          <div class="stepper-container">
+            <button id="btnCountDec" class="stepper-btn" type="button">−</button>
+            <input 
+              type="number" 
+              id="clipCount" 
+              class="stepper-input" 
+              value="4" 
+              min="1" 
+              max="10" 
+              readonly
+            />
+            <button id="btnCountInc" class="stepper-btn" type="button">+</button>
+          </div>
+        </div>
+
+        <!-- Toggles: Facecam & Subtitles -->
+        <div class="toggle-group">
+          <label class="checkbox-label" for="toggleFacecam">
+            <div class="checkbox-label-text">
+              <span>👤 Facecam :</span>
+            </div>
+            <div class="custom-switch">
+              <input type="checkbox" id="toggleFacecam" checked />
+              <span class="switch-slider"></span>
+            </div>
+          </label>
+
+          <label class="checkbox-label" for="toggleSubtitles">
+            <div class="checkbox-label-text">
+              <span>💬 Subtitles :</span>
+            </div>
+            <div class="custom-switch">
+              <input type="checkbox" id="toggleSubtitles" checked />
+              <span class="switch-slider"></span>
+            </div>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons (Bottom Left Matching Sketch) -->
+      <div class="actions-section">
+        <div class="button-row">
+          <button id="btnStart" class="btn btn-start">
+            ▶ Start
+          </button>
+          <button id="btnCancel" class="btn btn-cancel" disabled>
+            ⏹ Cancel
+          </button>
+        </div>
+        <button id="btnCancelAfter" class="btn btn-cancel-after" disabled>
+          ⏸ Cancel after current clip
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column: Progress List & ETA (Matches Sketch) -->
+    <div class="right-panel">
+      <div class="progress-header-container">
+        <div class="progress-title">
+          <span>Progress</span>
+        </div>
+        <div class="eta-box">
+          <span id="elapsedText" class="elapsed-text">Elapsed: 0s</span>
+          <div id="etaPill" class="eta-pill" style="display: none;">
+            <span>⏱</span>
+            <span id="etaText">ETA: Calculating...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable Clip Cards List -->
+      <div id="clipsList" class="clips-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer Info / Global Status -->
+  <footer>
+    <div class="footer-left">
+      <span>Status:</span>
+      <span id="globalMessage" class="global-message">Awaiting input... Enter a YouTube URL and click Start.</span>
+    </div>
+    <div class="footer-right">
+      <button id="btnOpenStudio" class="link-btn">Launch Remotion Studio</button>
+      <button id="btnOpenOutFolder" class="link-btn">Open Output Folder</button>
+    </div>
+  </footer>
+
+  <script>
+    // State references
+    let currentPipeline = null;
+    let eventSource = null;
+
+    // DOM Elements
+    const formSectionEl = document.getElementById('formSection');
+    const videoUrlEl = document.getElementById('videoUrl');
+    const btnMethodStream = document.getElementById('btnMethodStream');
+    const btnMethodDownload = document.getElementById('btnMethodDownload');
+    const clipCountEl = document.getElementById('clipCount');
+    const toggleFacecamEl = document.getElementById('toggleFacecam');
+    const toggleSubtitlesEl = document.getElementById('toggleSubtitles');
+    const btnPaste = document.getElementById('btnPaste');
+    const btnCountDec = document.getElementById('btnCountDec');
+    const btnCountInc = document.getElementById('btnCountInc');
+    const btnStart = document.getElementById('btnStart');
+    const btnCancel = document.getElementById('btnCancel');
+    const btnCancelAfter = document.getElementById('btnCancelAfter');
+    const clipsListEl = document.getElementById('clipsList');
+    const statusDotEl = document.getElementById('statusDot');
+    const statusTextEl = document.getElementById('statusText');
+    const etaPillEl = document.getElementById('etaPill');
+    const etaTextEl = document.getElementById('etaText');
+    const elapsedTextEl = document.getElementById('elapsedText');
+    const globalMessageEl = document.getElementById('globalMessage');
+    const btnOpenStudio = document.getElementById('btnOpenStudio');
+    const btnOpenOutFolder = document.getElementById('btnOpenOutFolder');
+
+    // Clipping Method Selection Logic
+    let selectedMethod = 'stream';
+
+    function setMethod(method) {
+      selectedMethod = method === 'download' ? 'download' : 'stream';
+      if (selectedMethod === 'stream') {
+        btnMethodStream.classList.add('active');
+        btnMethodDownload.classList.remove('active');
+      } else {
+        btnMethodDownload.classList.add('active');
+        btnMethodStream.classList.remove('active');
+      }
+    }
+
+    btnMethodStream.addEventListener('click', () => {
+      if (currentPipeline && (currentPipeline.status === 'running' || currentPipeline.status === 'stopping')) return;
+      setMethod('stream');
+    });
+
+    btnMethodDownload.addEventListener('click', () => {
+      if (currentPipeline && (currentPipeline.status === 'running' || currentPipeline.status === 'stopping')) return;
+      setMethod('download');
+    });
+
+    // Stepper logic
+    btnCountDec.addEventListener('click', () => {
+      let val = parseInt(clipCountEl.value, 10) || 4;
+      if (val > 1) {
+        clipCountEl.value = val - 1;
+        updatePreviewList();
+      }
+    });
+
+    btnCountInc.addEventListener('click', () => {
+      let val = parseInt(clipCountEl.value, 10) || 4;
+      if (val < 10) {
+        clipCountEl.value = val + 1;
+        updatePreviewList();
+      }
+    });
+
+    // Paste button
+    btnPaste.addEventListener('click', async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          videoUrlEl.value = text.trim();
+        }
+      } catch (err) {
+        console.warn('Clipboard read failed:', err);
+      }
+    });
+
+    // Preview clip list when idle
+    function updatePreviewList() {
+      if (currentPipeline && (currentPipeline.status === 'running' || currentPipeline.status === 'stopping')) {
+        return;
+      }
+      const count = parseInt(clipCountEl.value, 10) || 4;
+      const dummyClips = Array.from({ length: count }, (_, i) => ({
+        index: i + 1,
+        name: `Clip ${i + 1}`,
+        percent: 0,
+        status: 'waiting',
+        stage: 'In queue',
+      }));
+      renderClips(dummyClips);
+    }
+
+    // Format seconds into MM:SS or HH:MM:SS
+    function formatTime(sec) {
+      if (!sec || isNaN(sec) || sec < 0) return '0s';
+      sec = Math.round(sec);
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      if (m >= 60) {
+        const h = Math.floor(m / 60);
+        const remM = m % 60;
+        return `${h}h ${remM}m ${s}s`;
+      }
+      if (m > 0) {
+        return `${m}m ${s}s`;
+      }
+      return `${s}s`;
+    }
+
+    // Render clip cards
+    function renderClips(clips) {
+      if (!clips || !Array.isArray(clips)) return;
+      clipsListEl.innerHTML = '';
+
+      clips.forEach((clip) => {
+        const card = document.createElement('div');
+        const statusClass = clip.status || 'waiting';
+        card.className = `clip-card ${statusClass}`;
+
+        const isDone = clip.status === 'done';
+        const isRunning = clip.status === 'running';
+
+        // Header: Clip Name & Value (Done, 78%, or 0)
+        const header = document.createElement('div');
+        header.className = 'clip-card-header';
+
+        const nameGroup = document.createElement('div');
+        nameGroup.className = 'clip-name-group';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'clip-name';
+        nameSpan.textContent = clip.name || `Clip ${clip.index}`;
+        nameGroup.appendChild(nameSpan);
+
+        if (clip.duration) {
+          const durBadge = document.createElement('span');
+          durBadge.className = 'clip-meta-tag';
+          durBadge.textContent = `${clip.duration.toFixed(1)}s`;
+          nameGroup.appendChild(durBadge);
+        }
+
+        const valueSpan = document.createElement('span');
+        valueSpan.className = 'clip-progress-value';
+
+        if (isDone) {
+          valueSpan.innerHTML = `<span class="badge-done">Done</span>`;
+        } else if (isRunning) {
+          valueSpan.innerHTML = `<span class="badge-running">${Math.round(clip.percent || 0)}%</span>`;
+        } else if (clip.status === 'error') {
+          valueSpan.innerHTML = `<span class="badge-error">Error</span>`;
+        } else {
+          valueSpan.innerHTML = `<span class="badge-waiting">0</span>`;
+        }
+
+        header.appendChild(nameGroup);
+        header.appendChild(valueSpan);
+        card.appendChild(header);
+
+        // Progress bar
+        const barBg = document.createElement('div');
+        barBg.className = 'progress-bar-bg';
+        const barFill = document.createElement('div');
+        barFill.className = `progress-bar-fill ${isDone ? 'done' : ''}`;
+        barFill.style.width = isDone ? '100%' : `${Math.min(100, Math.max(0, clip.percent || 0))}%`;
+        barBg.appendChild(barFill);
+        card.appendChild(barBg);
+
+        // Stage description
+        const stageRow = document.createElement('div');
+        stageRow.className = 'clip-stage-row';
+        const stageText = document.createElement('span');
+        stageText.className = 'clip-stage-text';
+        stageText.textContent = isDone ? 'Short rendered & ready for upload' : (clip.stage || 'Waiting in queue');
+        stageRow.appendChild(stageText);
+        card.appendChild(stageRow);
+
+        // Action buttons if done
+        if (isDone) {
+          const actionRow = document.createElement('div');
+          actionRow.className = 'clip-actions';
+
+          const editBtn = document.createElement('button');
+          editBtn.className = 'clip-btn';
+          editBtn.innerHTML = '✏️ Open in Editor';
+          editBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openInEditor(clip.index);
+          });
+          actionRow.appendChild(editBtn);
+
+          if (clip.outFile) {
+            const playBtn = document.createElement('button');
+            playBtn.className = 'clip-btn btn-play';
+            playBtn.innerHTML = '▶ Play Short';
+            playBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              openVideo(clip.outFile);
+            });
+            actionRow.appendChild(playBtn);
+          }
+
+          card.appendChild(actionRow);
+
+          // Click on card opens editor
+          card.addEventListener('click', () => {
+            openInEditor(clip.index);
+          });
+        }
+
+        clipsListEl.appendChild(card);
+      });
+    }
+
+    // Apply updated state from server
+    function updateUI(state) {
+      if (!state) return;
+      currentPipeline = state;
+
+      const isRunning = state.status === 'running' || state.status === 'stopping';
+      const isStopping = state.status === 'stopping';
+
+      // Status Indicator
+      statusDotEl.className = `status-dot ${state.status}`;
+      if (state.status === 'running') statusTextEl.textContent = 'Processing...';
+      else if (state.status === 'stopping') statusTextEl.textContent = 'Stopping...';
+      else if (state.status === 'done') statusTextEl.textContent = 'Completed';
+      else if (state.status === 'cancelled') statusTextEl.textContent = 'Cancelled';
+      else if (state.status === 'error') statusTextEl.textContent = 'Failed';
+      else statusTextEl.textContent = 'Ready';
+
+      // Global status message
+      globalMessageEl.textContent = state.globalMessage || 'Ready';
+
+      // Form inputs enable/disable & grey out
+      if (isRunning) {
+        formSectionEl.classList.add('disabled');
+      } else {
+        formSectionEl.classList.remove('disabled');
+      }
+
+      if (state.clipMode) {
+        setMethod(state.clipMode);
+      }
+      btnMethodStream.disabled = isRunning;
+      btnMethodDownload.disabled = isRunning;
+      videoUrlEl.disabled = isRunning;
+      btnPaste.disabled = isRunning;
+      btnCountDec.disabled = isRunning;
+      btnCountInc.disabled = isRunning;
+      toggleFacecamEl.disabled = isRunning;
+      toggleSubtitlesEl.disabled = isRunning;
+
+      // Action buttons
+      btnStart.disabled = isRunning;
+      btnCancel.disabled = !isRunning;
+      btnCancelAfter.disabled = !isRunning || isStopping;
+
+      if (isStopping || state.cancelAfterCurrent) {
+        btnCancelAfter.classList.add('armed');
+        btnCancelAfter.textContent = '⏳ Stopping after current clip...';
+      } else {
+        btnCancelAfter.classList.remove('armed');
+        btnCancelAfter.textContent = '⏸ Cancel after current clip';
+      }
+
+      // Elapsed & ETA
+      if (isRunning && typeof state.elapsedSeconds === 'number') {
+        elapsedTextEl.textContent = `Elapsed: ${formatTime(state.elapsedSeconds)}`;
+      } else if (state.status === 'done' && state.elapsedSeconds) {
+        elapsedTextEl.textContent = `Finished in: ${formatTime(state.elapsedSeconds)}`;
+      }
+
+      if (isRunning && typeof state.etaSeconds === 'number') {
+        etaPillEl.style.display = 'flex';
+        etaTextEl.textContent = `ETA: ~${formatTime(state.etaSeconds)}`;
+      } else if (state.status === 'done') {
+        etaPillEl.style.display = 'flex';
+        etaTextEl.textContent = 'Done!';
+      } else {
+        etaPillEl.style.display = 'none';
+      }
+
+      // Render clips
+      if (state.clips && state.clips.length > 0) {
+        renderClips(state.clips);
+      }
+    }
+
+    // Connect to Server-Sent Events (SSE)
+    function connectEvents() {
+      if (eventSource) {
+        eventSource.close();
+      }
+
+      eventSource = new EventSource('/api/events');
+
+      eventSource.addEventListener('state', (e) => {
+        try {
+          const state = JSON.parse(e.data);
+          updateUI(state);
+        } catch (err) {
+          console.error('Failed to parse SSE state:', err);
+        }
+      });
+
+      eventSource.onerror = () => {
+        console.warn('SSE disconnected. Reconnecting in 2s...');
+        eventSource.close();
+        setTimeout(connectEvents, 2000);
+      };
+    }
+
+    // Fetch initial status via REST
+    async function fetchInitialStatus() {
+      try {
+        const res = await fetch('/api/status');
+        if (res.ok) {
+          const state = await res.json();
+          if (state.url) videoUrlEl.value = state.url;
+          if (state.numClips) clipCountEl.value = state.numClips;
+          if (typeof state.facecam === 'boolean') toggleFacecamEl.checked = state.facecam;
+          if (typeof state.subtitles === 'boolean') toggleSubtitlesEl.checked = state.subtitles;
+          if (state.clipMode) setMethod(state.clipMode);
+          updateUI(state);
+          if (!state.clips || state.clips.length === 0) {
+            updatePreviewList();
+          }
+        }
+      } catch (err) {
+        console.warn('Could not fetch initial status:', err);
+        updatePreviewList();
+      }
+    }
+
+    // Button: Start
+    btnStart.addEventListener('click', async () => {
+      const url = videoUrlEl.value.trim();
+      if (!url) {
+        alert('Please enter a YouTube video URL or file path.');
+        videoUrlEl.focus();
+        return;
+      }
+
+      const numClips = parseInt(clipCountEl.value, 10) || 4;
+      const facecam = toggleFacecamEl.checked;
+      const subtitles = toggleSubtitlesEl.checked;
+
+      // Immediately grey out left panel controls
+      formSectionEl.classList.add('disabled');
+      btnMethodStream.disabled = true;
+      btnMethodDownload.disabled = true;
+      videoUrlEl.disabled = true;
+      btnPaste.disabled = true;
+      btnCountDec.disabled = true;
+      btnCountInc.disabled = true;
+      toggleFacecamEl.disabled = true;
+      toggleSubtitlesEl.disabled = true;
+      btnStart.disabled = true;
+      btnCancel.disabled = false;
+      btnCancelAfter.disabled = false;
+      globalMessageEl.textContent = 'Starting clipper pipeline...';
+
+      try {
+        const res = await fetch('/api/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url, numClips, facecam, subtitles, clipMode: selectedMethod }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          alert(data.error || 'Failed to start pipeline');
+          formSectionEl.classList.remove('disabled');
+          btnMethodStream.disabled = false;
+          btnMethodDownload.disabled = false;
+          videoUrlEl.disabled = false;
+          btnPaste.disabled = false;
+          btnCountDec.disabled = false;
+          btnCountInc.disabled = false;
+          toggleFacecamEl.disabled = false;
+          toggleSubtitlesEl.disabled = false;
+          btnStart.disabled = false;
+          btnCancel.disabled = true;
+          btnCancelAfter.disabled = true;
+        }
+      } catch (err) {
+        alert('Error connecting to backend: ' + err.message);
+        formSectionEl.classList.remove('disabled');
+        btnMethodStream.disabled = false;
+        btnMethodDownload.disabled = false;
+        videoUrlEl.disabled = false;
+        btnPaste.disabled = false;
+        btnCountDec.disabled = false;
+        btnCountInc.disabled = false;
+        toggleFacecamEl.disabled = false;
+        toggleSubtitlesEl.disabled = false;
+        btnStart.disabled = false;
+        btnCancel.disabled = true;
+        btnCancelAfter.disabled = true;
+      }
+    });
+
+    // Button: Cancel
+    btnCancel.addEventListener('click', async () => {
+      if (!confirm('Are you sure you want to immediately cancel the current process?')) return;
+      try {
+        await fetch('/api/cancel', { method: 'POST' });
+      } catch (err) {
+        console.error('Cancel request error:', err);
+      }
+    });
+
+    // Button: Cancel after current clip
+    btnCancelAfter.addEventListener('click', async () => {
+      try {
+        await fetch('/api/cancel-after-current', { method: 'POST' });
+      } catch (err) {
+        console.error('Cancel-after request error:', err);
+      }
+    });
+
+    // Open clip in Remotion Studio
+    async function openInEditor(clipId) {
+      try {
+        await fetch('/api/open-editor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clipId }),
+        });
+      } catch (err) {
+        console.error('Open editor error:', err);
+      }
+    }
+
+    // Play rendered video
+    async function openVideo(outFile) {
+      try {
+        await fetch('/api/open-video', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ outFile }),
+        });
+      } catch (err) {
+        console.error('Open video error:', err);
+      }
+    }
+
+    // Launch Remotion Studio directly
+    btnOpenStudio.addEventListener('click', () => {
+      openInEditor(1);
+    });
+
+    // Open output folder
+    btnOpenOutFolder.addEventListener('click', async () => {
+      try {
+        await fetch('/api/open-folder', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ folder: 'out' }),
+        });
+      } catch (err) {
+        console.error('Open folder error:', err);
+      }
+    });
+
+    // Initialization
+    fetchInitialStatus();
+    connectEvents();
+  </script>
+</body>
+</html>

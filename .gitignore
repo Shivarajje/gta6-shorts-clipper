@@ -1,7 +1,49 @@
-node_modules
-dist
-.DS_Store
-.env
+# Dependencies
+node_modules/
+dist/
 
-# Ignore the output video from Git but not videos you import into src/.
-out
+# System & OS
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Environment
+.env
+.env.*
+
+# Media, Videos, Clips & Audios (STRICTLY EXCLUDED)
+*.mp4
+*.mkv
+*.webm
+*.avi
+*.mov
+*.wmv
+*.flv
+*.m4v
+*.mp3
+*.wav
+*.flac
+*.aac
+*.m4a
+*.ogg
+*.part
+*.ytdl
+
+# Output & Generated Clip Directories
+out/
+raw_videos/
+public/clips/
+
+# Whisper / Models / Binaries
+whisper.cpp/
+*.bin
+
+# Temporary & Runtime State
+scripts/.clipper-control.json
+.playwright-mcp/
+.agents/
+.claude/
+skills-lock.json
+
+# Preserve public directory structure
+!public/.gitkeep
